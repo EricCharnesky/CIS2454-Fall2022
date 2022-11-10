@@ -21,17 +21,27 @@ public class Stocks extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<Stock> stocks = new ArrayList<>();
-        Stock stock = new Stock("GME", "GameStop Corp", 142.17, 300);
-        request.setAttribute("stock", stock);
+        if ("forms".equals(request.getParameter("action"))) {
+            String url = "/forms.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
 
-        stocks.add(stock);
-        stocks.add( new Stock("AMC", "AMC Entertainment Holdings", 20.2, 3.5));
+        } else {
+            ArrayList<Stock> stocks = new ArrayList<>();
+            Stock stock = new Stock("GME", "GameStop Corp", 142.17, 100);
+            request.setAttribute("stock", stock);
 
-         request.setAttribute("stocks", stocks);
+            stocks.add(stock);
+            stocks.add(new Stock("AMC", "AMC Entertainment Holdings", 20.2, 3.5));
 
-        String url = "/stocks.jsp";
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+            request.setAttribute("stocks", stocks);
+
+            Portfolio portfolio = new Portfolio(stocks);
+
+            request.setAttribute("portfolio", portfolio);
+
+            String url = "/stocks.jsp";
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

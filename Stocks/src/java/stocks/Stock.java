@@ -28,7 +28,7 @@ public class Stock implements Serializable {
         this.currentPrice = currentPrice;
         this.purchasePrice = purchasePrice;
     }
-
+    
     public double getValue(){
         return currentPrice - purchasePrice;
     }
@@ -40,8 +40,8 @@ public class Stock implements Serializable {
     public void setPurchasePrice(double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
-
-
+    
+    
 
     public String getSymbol() {
         return symbol;
